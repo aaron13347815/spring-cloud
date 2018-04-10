@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: hops-cloud-feign
+#  cloud: 
+#    config: 
+#      name: application
+#      profile: dev
+#      uri: http://localhost:8777/

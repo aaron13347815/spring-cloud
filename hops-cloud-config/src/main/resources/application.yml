@@ -1,0 +1,20 @@
+server:
+  port: 8762
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://192.168.1.45:8761/eureka/
+      
+spring: 
+  cloud: 
+    config: 
+      label: master
+      server: 
+        git:
+          uri: http://192.168.4.107:8080/cloud/hops-cloud-config.git
+          username: yushijie
+          password: YSJnick123 
+#          uri: https://github.com/aaron13347815/myProject
+        

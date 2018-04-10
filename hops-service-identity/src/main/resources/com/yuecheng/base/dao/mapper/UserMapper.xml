@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yuecheng.base.dao.UserMapper">
+  <resultMap id="UserMap" type="com.yuecheng.base.entity.UserEntity">
+	<id column="user_id" property="userId" />
+	<result column="user_name" property="userName" />
+	<result column="user_icon" property="userIcon" />
+	<result column="create_date" property="createDate" />
+	<result column="create_author" property="createAuthor" />
+	<result column="last_update_date" property="lastUpdateDate" />
+	<result column="last_update_author" property="lastUpdateAuthor" />
+	<result column="enable" property="enable" />
+  </resultMap>
+  <sql id="table_name"> USER_T </sql>
+  <sql id="table_column"> user_id,user_name,user_icon,create_date,create_author,last_update_date,last_update_author,enable </sql>
+  
+  <!-- 批量新增  -->
+  <insert id="insertRecords" parameterType="java.util.List">
+    insert into
+      <include refid="table_name" />
+	  <trim prefix="(" suffix=")values">
+		<include refid="table_column" />
+	  </trim>
+	  <foreach collection="users" item="record" separator=",">
+		(
+		#{record.userId},
+		#{record.userName},
+		#{record.userIcon},
+		sysdate,
+		#{record.createAuthor},
+		#{record.lastUpdateDate},
+		#{record.lastUpdateAuthor},
+		#{record.enable},
+		)
+	  </foreach>
+  </insert>
+  <!-- 查询多条  -->
+  	<select id="queryUserPage" resultMap="UserMap" parameterType="com.yuecheng.base.entity.UserEntity">
+		select
+		<include refid="table_column" />
+		from
+		<include refid="table_name" />
+		where 1=1
+	    <if test="userName != null and userName != ''">
+			and user_name = #{userName} 
+		</if>
+		<if test="userIcon != null and userIcon != ''">
+			and user_icon = #{userIcon} 
+		</if>
+	    <if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
+			and last_update_author = #{lastUpdateAuthor} 
+		</if>
+		<if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
+			and last_update_author = #{lastUpdateAuthor} 
+		</if>
+		<if test="enable != null and enable != ''">
+			and enable = #{enable}
+		</if>
+	</select>
+  
+  <!-- 查询单条 -->
+  <select id="queryById" resultMap="UserMap">
+	select
+	<include refid="table_column" />
+	from
+	<include refid="table_name" />
+    where user_id = #{userId}
+  </select>
+  
+  <!-- 修改 -->
+  <update id="updateUserById" parameterType="com.yuecheng.base.entity.UserEntity">
+	update
+	<include refid="table_name" />
+	<set>
+	    <if test="userName != null and userName != ''">
+			user_name = #{userName}, 
+		</if>
+		<if test="userIcon != null and userIcon != ''">
+			user_icon = #{userIcon}, 
+		</if>
+		<if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
+			last_update_author = #{lastUpdateAuthor}, 
+		</if>
+		<if test="enable != null and enable != ''">
+			enable = #{enable}, 
+		</if>
+		last_update_date = sysdate
+	</set>
+	<where>user_id = #{userId}</where>
+  </update>
+  
+  <!-- 删除 -->
+ <delete id="deleteUserById">
+	delete from
+	<include refid="table_name" />
+	<where> user_id = #{userId} </where>
+  </delete>
+  
+</mapper>

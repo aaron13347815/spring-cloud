@@ -1,0 +1,26 @@
+http:  
+  port: 9999
+  
+server:
+  port: 10000
+  ssl:
+    key-store: classpath:sample.jks
+    key-store-password: secret
+    key-password: password
+    
+zuul:  
+#  prefix: /api #为zuul设置一个公共的前缀  
+  routes:  
+    hops-portal:  
+      path: /portal/**
+      url: http://localhost:9527/portal
+#      url: http://192.168.1.44/spring-cloud
+    hops-service-identity: 
+      path: /identity/**
+      serviceId: hops-service-identity
+      
+eureka:  
+  client:  
+    service-url:  
+      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://192.168.1.45:8761/eureka/

@@ -1,0 +1,13 @@
+server:
+  port: 8001
+
+eureka:
+  #instance:
+    #lease-renewal-interval-in-seconds: 10 租期更新时间间隔（默认30秒）
+    #lease-expiration-duration-in-seconds: 15 租期到期时间（默认90秒）
+  healthcheck:
+    enabled: true #开启健康检查（需要spring-boot-starter-actuator依赖）
+  
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.1.45:8761/eureka/

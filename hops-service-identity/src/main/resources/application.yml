@@ -1,0 +1,36 @@
+server:
+  port: 8003
+
+spring: 
+  datasource: 
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.4.203:1521:huafei
+    username: cloud_identity_dev
+    password: cloud_identity_dev
+
+mybatis:
+  mapperLocations: classpath*:com/yuecheng/base/dao/mapper/*Mapper.xml
+  #typeAliasesPackage: com.yuecheng.base.vo
+
+eureka:
+  instance: 
+    statusPageUrlPath: http://localhost:${server.port}/swagger-ui.html
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://192.168.1.45:8761/eureka/
+
+pagehelper:
+    helperDialect: oracle
+    reasonable: true
+    supportMethodsArguments: true
+    pageSizeZero: true
+    params: count=countSql      
+
+logging: 
+  level: 
+    com: 
+      yuecheng:
+        base:
+          dao: DEBUG
+            

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: hops-service-identity
+#  cloud: 
+#    config: 
+#      name: application
+#      profile: dev
+#      uri: http://localhost:8762/

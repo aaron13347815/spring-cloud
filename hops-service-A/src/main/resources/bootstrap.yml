@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: hops-service-A
+  cloud: 
+    config: 
+      name: application
+      profile: dev
+      uri: http://192.168.1.45:8762/
