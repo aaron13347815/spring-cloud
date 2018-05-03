@@ -1,7 +1,5 @@
 package com.yuecheng.base.vo;
 
-import java.io.Serializable;
-
 public class PermissionVO extends BaseVO {
 
 	private static final long serialVersionUID = -967201537053509697L;

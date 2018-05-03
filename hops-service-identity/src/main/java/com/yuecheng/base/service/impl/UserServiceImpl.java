@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			throw new RuntimeException("数据库操作异常",e);
 		}
-		System.out.println(pagevo.getValues().size());
 		List<UserVO> values = pagevo.getValues().stream().map(x -> {
 			UserVO vo = new UserVO();
 			BeanUtils.copyProperties(x, vo);
@@ -81,16 +80,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserEntity queryById(String userId) {
+	public UserVO queryById(String userId) {
 		// TODO Auto-generated method stub
-		UserEntity ue = new UserEntity();
+		UserVO uservo = new UserVO();
 		try {
-			ue = userMapper.queryById(userId);
+			UserEntity ue = userMapper.queryById(userId);
+			BeanUtils.copyProperties(uservo, ue);
 		} catch (Exception e) {
 			throw new RuntimeException("数据库操作异常",e);
 		}
-		return ue;
+		return uservo;
 	}
-
-
 }

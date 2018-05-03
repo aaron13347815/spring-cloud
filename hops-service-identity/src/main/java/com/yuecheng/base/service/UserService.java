@@ -18,5 +18,5 @@ public interface UserService {
 	/** 查多条分页  */
 	PageVO<UserVO> queryUserPage(UserVO userVO);
 	/** 查1条   */
-    UserEntity queryById(@Param("userId") String userId);
+    UserVO queryById(@Param("userId") String userId);
 }

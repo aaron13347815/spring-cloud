@@ -33,8 +33,4 @@ public class UUIDTools {
         mostSigBits |= 0x1000 | ((timeMillis >> 48) & 0x0FFF); // version 1  
         return new UUID(mostSigBits, leastSigBits);  
     } 
-//	
-//	public static void main(String[] args) throws Exception {
-//	    System.out.println(UUIDTools.create().toString().replace("-",""));	
-//	}
 }

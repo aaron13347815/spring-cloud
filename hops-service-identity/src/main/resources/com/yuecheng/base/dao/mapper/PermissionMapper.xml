@@ -1,4 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yuecheng.base.dao.mapper.identityPermissionMapper">
+<mapper namespace="com.yuecheng.base.dao.PermissionMapper">
+  <resultMap id="PermissionMap" type="com.yuecheng.base.entity.PermissionEntity">
+	<id column="permission_id" property="permissionId" />
+	<result column="permission_name" property="permissionName" />
+	<result column="permission_code" property="permissionCode" />
+	<result column="permission_url" property="permissionUrl" />
+	<result column="create_date" property="createDate" />
+	<result column="create_author" property="createAuthor" />
+	<result column="last_update_date" property="lastUpdateDate" />
+	<result column="last_update_author" property="lastUpdateAuthor" />
+	<result column="enable" property="enable" />
+  </resultMap>
+  <sql id="table_name"> PERMISSION_T </sql>
+  <sql id="table_column"> permission_id,permission_name,permission_code,permission_url,create_date,create_author,last_update_date,last_update_author,enable </sql>
+  
+  <!-- 批量新增  -->
+  <insert id="insertRecords" parameterType="java.util.List">
+    insert into
+      <include refid="table_name" />
+	  <trim prefix="(" suffix=")values">
+		<include refid="table_column" />
+	  </trim>
+	  <foreach collection="permissions" item="record" separator=",">
+		(
+		#{record.permissionId},
+		#{record.permissionName},
+		#{record.permissionCode},
+		#{record.permissionUrl},
+		sysdate,
+		#{record.createAuthor},
+		#{record.lastUpdateDate},
+		#{record.lastUpdateAuthor},
+		#{record.enable},
+		)
+	  </foreach>
+  </insert>
+  <!-- 查询多条  -->
+  	<select id="queryPermissionPage" resultMap="PermissionMap" parameterType="com.yuecheng.base.entity.PermissionEntity">
+		select
+		<include refid="table_column" />
+		from
+		<include refid="table_name" />
+		where 1=1
+	    <if test="permissionName != null and permissionName != ''">
+			and permission_name = #{permissionName} 
+		</if>
+		<if test="permissionCode != null and permissionCode != ''">
+			and permission_code = #{permissionCode} 
+		</if>
+		<if test="permissionUrl != null and permissionUrl != ''">
+			and permission_url = #{permissionUrl} 
+		</if>
+	    <if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
+			and last_update_author = #{lastUpdateAuthor} 
+		</if>
+		<if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
+			and last_update_author = #{lastUpdateAuthor} 
+		</if>
+		<if test="enable != null and enable != ''">
+			and enable = #{enable}
+		</if>
+	</select>
+  
+  <!-- 查询单条 -->
+  <select id="queryById" resultMap="PermissionMap">
+	select
+	<include refid="table_column" />
+	from
+	<include refid="table_name" />
+    where permission_id = #{permissionId}
+  </select>
+  
+  <!-- 修改 -->
+  <update id="updatePermissionById" parameterType="com.yuecheng.base.entity.PermissionEntity">
+	update
+	<include refid="table_name" />
+	<set>
+	    <if test="permissionName != null and permissionName != ''">
+			permission_name = #{permissionName}, 
+		</if>
+		<if test="permissionCode != null and permissionCode != ''">
+			permission_code = #{permissionCode}, 
+		</if>
+		<if test="permissionUrl != null and permissionUrl != ''">
+			permission_url = #{permissionUrl}, 
+		</if>
+		<if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
+			last_update_author = #{lastUpdateAuthor}, 
+		</if>
+		<if test="enable != null and enable != ''">
+			enable = #{enable}, 
+		</if>
+		last_update_date = sysdate
+	</set>
+	<where>permission_id = #{permissionId}</where>
+  </update>
+  
+  <!-- 删除 -->
+ <delete id="deletePrmissionById">
+	delete from
+	<include refid="table_name" />
+	<where> permission_id = #{permissionId} </where>
+  </delete>
 </mapper>

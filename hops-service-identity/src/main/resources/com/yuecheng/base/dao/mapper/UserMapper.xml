@@ -47,8 +47,8 @@
 		<if test="userIcon != null and userIcon != ''">
 			and user_icon = #{userIcon} 
 		</if>
-	    <if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
-			and last_update_author = #{lastUpdateAuthor} 
+	    <if test="createAuthor != null and createAuthor != ''">
+			and create_author = #{createAuthor} 
 		</if>
 		<if test="lastUpdateAuthor != null and lastUpdateAuthor != ''">
 			and last_update_author = #{lastUpdateAuthor} 
